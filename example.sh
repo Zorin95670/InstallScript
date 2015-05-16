@@ -18,6 +18,8 @@
 
 addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE
 
+su
+
 # Création du répertoire des logs d'installation
 mkdir -p /var/log/InstallServer
 

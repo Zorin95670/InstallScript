@@ -15,8 +15,11 @@
 
 addressWeb=$1
 
+su
+
 # Ajout de l'utilisateur git
-adduser --system --shell /bin/bash --group --disabled-password --home /var/git/ git
+adduser --system --shell /bin/bash --group --home /var/git/ git
+passwd git
 chown git:git /var/git
 
 # installation de git

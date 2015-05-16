@@ -14,6 +14,8 @@
 #			1° Liste d'utilisateur autorisé, si vide alors : user
 #-------------------------------------------------------------------------------------------------------------------------
 
+su
+
 # Création du répertoire des logs d'installation
 logFile=/var/log/InstallServer/ssh/log.txt
 mkdir -p /var/log/InstallServer/ssh

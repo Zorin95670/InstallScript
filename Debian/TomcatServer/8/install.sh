@@ -11,6 +11,8 @@
 #			Installation d'un serveur tomcat 8.
 #-------------------------------------------------------------------------------------------------------------------------
 
+su
+
 # Définition de l'utilisateur de tomcat
 read -p 'login administrateur: ' tomcatUser
 while [ -z $tomcatUser ]; do

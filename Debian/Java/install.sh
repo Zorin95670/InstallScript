@@ -11,6 +11,8 @@
 #			Script d'installation de java
 #-------------------------------------------------------------------------------------------------------------------------
 
+su
+
 # Demande le type d'installation de java voulu
 javaType=0
 while [ $javaType = 0 ]
