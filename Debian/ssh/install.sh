@@ -25,19 +25,43 @@ else
 	user="$1" 
 fi
 
+# Demande le port
+port=0
+while [ $port = 0 ]
+do
+	read -p 'Numéro de port pour le ssh? ' response
+	if [ $response - le 0 ]; then
+		port=0
+	else
+		port=$response
+	fi
+done
+
+# Demande l'adresse d'écoute
+address=0
+while [ $address = 0 ]
+do
+	read -p 'Adresse ip à écouter? ' response
+	if [[ $response =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+		address=$response
+	else
+		address=0
+	fi
+done
+
 # Installation du paquet pour un serveur ssh
 echo "I - Install openssh paquet" >> $logFile
 [[ -z `dpkg --get-selections | grep -w ^openssh-server[^-]` ]] && apt-get install -y openssh-server
 echo "#### Networking options ####
 
 # Listen on a non-standard port > 1024
-Port 22764
+Port $port
 
 # Restrict to IPv4. inet = IPv4, inet6 = IPv6, any = both 
 AddressFamily inet
 
 # Listen only on the internal network address
-ListenAddress 172.16.1.0
+ListenAddress $address
 
 # Only use protocol version 2
 Protocol 2
