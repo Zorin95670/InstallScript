@@ -4,12 +4,17 @@ Script d'installation pour serveur linux.
 Pour que tout marche correctement :
 
 - il faut copier l'ensemble des répertoires dans le dossier web d'un serveur apache.
+
 - modifier les adresses du serveur dans les scripts addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE par l'adresse de votre serveur
 
+## Lancement 
 
 Pour lancer un script d'installation :
+
 1 Devenir administrateur grâce à la commande : `su`
+
 2 Le récupérer grâce à la commande : `wget http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE\SCRIPT_VOULU`
+
 3 L'éxécuter grâce à la commande : `sh install.sh`
 
 ## Exemple
