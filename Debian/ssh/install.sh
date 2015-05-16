@@ -6,19 +6,24 @@
 #	Date:		2015
 #	OS :		Debian
 #	Version :	8
-#	Script-Version : 1.0.0
+#	Script-Version : 1.0.1
 #	Description:
 #			Installe et configure le ssh d'un serveur ssh pour un serveur debian.
 #			
 #	Paramètre:	
-#			1° Test
-#			2° Test
-#			3° Test
+#			1° Liste d'utilisateur autorisé, si vide alors : user
 #-------------------------------------------------------------------------------------------------------------------------
 
 # Création du répertoire des logs d'installation
 logFile=/var/log/InstallServer/ssh/log.txt
 mkdir -p /var/log/InstallServer/ssh
+
+# Définition des utilisateurs
+if [ -z ${1+x} ]; then 
+	user="user"; 
+else 
+	user="$1" 
+fi
 
 # Installation du paquet pour un serveur ssh
 echo "I - Install openssh paquet" >> $logFile
@@ -70,7 +75,7 @@ PermitBlacklistedKeys no
 #### Authentication ####
 
 # Whitelist allowed users
-AllowUsers user
+AllowUsers $user
 
 # one minute to enter your key passphrase
 LoginGraceTime 60
