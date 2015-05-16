@@ -23,11 +23,6 @@ while [ -z $tomcatUser ]; do
 	read -ps 'Mot de passe administrateur: ' tomcatPwd
 done
 
-# Installation de java 7
-apt-get install -y openjdk-7-jdk
-javaVersion=$(update-java-alternatives --list | grep 'openjdk' | grep '7' | grep -Eo '^[^ ]+')
-update-java-alternatives --set $javaVersion
-
 # Installation de Tomcat7
 apt-get install -y tomcat7 tomcat7-admin
 echo "

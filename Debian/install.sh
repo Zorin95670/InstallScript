@@ -44,8 +44,22 @@ ssh=0
 while [ $ssh = 0 ]
 do
 	read -p 'Voulez-vous installer le ssh (y/n)? ' response
-	if [ $response = 'y' ] || [ $response = 'n' ]; then
+	if [ $response = 'y' ]; then
 		ssh=1
+	elif [ $response = 'n' ]; then
+		ssh=2
+	fi
+done
+
+# Demande si on veut installer java
+java=0
+while [ $java = 0 ]
+do
+	read -p 'Voulez-vous installer java (y/n)? ' response
+	if [ $response = 'y' ]; then
+		java=1
+	elif [ $response = 'n' ]; then
+		java=2
 	fi
 done
 
@@ -58,6 +72,14 @@ if [ $ssh = 1 ]; then
 	else
 		sh $HOME/INSTALL/ssh/install.sh
 	fi
+fi
+
+# Installation de java
+if [ $java = 1 ]; then
+	mkdir -p $HOME/INSTALL/Java
+	wget -P $HOME/INSTALL/Java $addressWeb/Debian/Java/install.sh
+	sh $HOME/INSTALL/Java/install.sh
+
 fi
 
 # Installation du serveur

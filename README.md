@@ -61,5 +61,6 @@ addressWeb=http://192.168.1.1/InstallServeur
 
 ## Sources
 - <a href="https://www.sheevaboite.fr/articles/installer-serveur-git-auto-heberge-partie-1" target="blank">Source d'installation du serveur git</a>
-- <a href="http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html" target="blank">Source d'installation de java 8</a>
+- <a href="http://www.webupd8.org/2012/06/how-to-install-oracle-java-7-in-debian.html" target="blank">Source d'installation de oracle java 7</a>
+- <a href="http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html" target="blank">Source d'installation de oracle java 8</a>
 - <a href="http://ubuntuforums.org/showthread.php?t=831372" target="blank">Source d'installation du ssh</a>
