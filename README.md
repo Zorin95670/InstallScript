@@ -13,7 +13,9 @@ Pour lancer un script d'installation :
 
 1 Devenir administrateur grâce à la commande : `su`
 
-2 Le récupérer grâce à la commande : `wget http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE\SCRIPT_VOULU`
+2 Le récupérer grâce à la commande : 
+
+`wget http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE\SCRIPT_VOULU`
 
 3 L'éxécuter grâce à la commande : `sh install.sh`
 
