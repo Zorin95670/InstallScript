@@ -9,33 +9,15 @@
 #	Script-Version : 1.0.0
 #	Description:
 #			Script d'installation d'un serveur git
+#	Paramètre:	
+#			1° Adresse du serveur d'installation
 #-------------------------------------------------------------------------------------------------------------------------
 
-addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE
-
-# Création du répertoire des logs d'installation
-mkdir -p /var/log/InstallServer
-
-# Demande si on veut installer le ssh
-ssh=0
-while [ $ssh = 0 ]
-do
-	read -p 'Voulez-vous installer le ssh (y/n)? ' response
-	if [ $response = 'y' ] || [ $response = 'n' ]; then
-		ssh=1
-	fi
-done
+addressWeb=$1
 
 # Ajout de l'utilisateur git
 adduser --system --shell /bin/bash --group --disabled-password --home /var/git/ git
 chown git:git /var/git
-
-# Installation du ssh
-if [ $ssh = 1 ]; then
-	mkdir -p $HOME/INSTALL/ssh
-	wget -P $HOME/INSTALL/ssh $addressWeb/Debian/ssh/install.sh
-	sh $HOME/INSTALL/ssh/install.sh git
-fi
 
 # installation de git
 apt-get install -y git

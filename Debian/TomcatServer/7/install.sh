@@ -11,18 +11,6 @@
 #			Installation d'un serveur tomcat 7.
 #-------------------------------------------------------------------------------------------------------------------------
 
-addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE
-
-# Demande si on veut installer le ssh
-ssh=0
-while [ $ssh = 0 ]
-do
-	read -p 'Voulez-vous installer le ssh (y/n)? ' response
-	if [ $response = 'y' ] || [ $response = 'n' ]; then
-		ssh=1
-	fi
-done
-
 # Définition de l'utilisateur de tomcat
 read -p 'login administrateur: ' tomcatUser
 while [ -z $tomcatUser ]; do
@@ -34,13 +22,6 @@ read -ps 'Mot de passe administrateur: ' tomcatPwd
 while [ -z $tomcatUser ]; do
 	read -ps 'Mot de passe administrateur: ' tomcatPwd
 done
-
-# Installation du ssh
-if [ $ssh = 1 ]; then
-	mkdir -p $HOME/INSTALL/ssh
-	wget -P $HOME/INSTALL/ssh $addressWeb/Debian/ssh/install.sh
-	sh $HOME/INSTALL/ssh/install.sh
-fi
 
 # Installation de java 7
 apt-get install -y openjdk-7-jdk
@@ -57,6 +38,3 @@ echo "
 
 # Redémarre le serveur tomcat
 service tomcat7 restart
-
-# Suppression des script d'installation
-rm -rf $HOME/INSTALL
