@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------------------------------------------------------------------
-#                                               Script d'example d'installation de serveur
+#                                               Script d'example d'installation d'un serveur git
 #
 #	Auteur: 	Moittie Vincent
 #	Date:		2015
@@ -8,12 +8,7 @@
 #	Version :	8
 #	Script-Version : 1.0.0
 #	Description:
-#			Description du script d'installation
-#			blabla
-#	Paramètre:	
-#			1° Test
-#			2° Test
-#			3° Test
+#			Script d'installation d'un serveur git
 #-------------------------------------------------------------------------------------------------------------------------
 
 addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE
