@@ -14,8 +14,6 @@
 #			1° Liste d'utilisateur autorisé, si vide alors : user
 #-------------------------------------------------------------------------------------------------------------------------
 
-su
-
 # Création du répertoire des logs d'installation
 logFile=/var/log/InstallServer/ssh/log.txt
 mkdir -p /var/log/InstallServer/ssh
@@ -40,16 +38,7 @@ do
 done
 
 # Demande l'adresse d'écoute
-address=0
-while [ $address = 0 ]
-do
-	read -p 'Adresse ip à écouter? ' response
-	if [[ $response =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-		address=$response
-	else
-		address=0
-	fi
-done
+read -p 'Adresse ip à écouter? ' response
 
 # Installation du paquet pour un serveur ssh
 echo "I - Install openssh paquet" >> $logFile

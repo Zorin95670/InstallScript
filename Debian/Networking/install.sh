@@ -20,8 +20,8 @@ do
 	echo "
 Quel type de configuration réseau voulez-vous installer :
 \t 0 - Aucune
-\t 1 - Static
-\t 2 - DHCP
+\t 1 - DHCP
+\t 2 - Static
  "
 	read -p 'Indiquez le numéro de configuration à installer :' typeInstall
 	if [ $typeInstall != 0 ] && [ $typeInstall != 1 ] && [ $typeInstall != 2 ]; then
@@ -39,7 +39,7 @@ iface lo inet loopback
 auto eth0
 allow-hotplug eth0
 iface eth0 inet dhcp" > /etc/network/interfaces
-	/etc/init.d/network restart
+	/etc/init.d/networking restart
 
 elif [ $typeInstall = 2 ]; then
 	echo -e "\e[1mINFO\e[0m - début configuration du réseau en static"
@@ -55,7 +55,7 @@ iface eth0 inet static
 	netmask $netmask
 	gateway $gateway" > /etc/network/interfaces
 	
-	/etc/init.d/network restart
+	/etc/init.d/networking restart
 	typeInstall=0
 	while [ $typeInstall = 0 ]
 	do
@@ -113,3 +113,5 @@ if [ $typeInstall = 1 ]; then
 		fi
 	done
 fi
+
+/etc/init.d/networking restart
