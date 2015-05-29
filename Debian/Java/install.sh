@@ -11,8 +11,6 @@
 #			Script d'installation de java
 #-------------------------------------------------------------------------------------------------------------------------
 
-su
-
 # Demande le type d'installation de java voulu
 javaType=0
 while [ $javaType = 0 ]
@@ -22,23 +20,26 @@ Quel type d'installation java voulez-vous :
 \t 1 - OpenJDK 7
 \t 2 - Oracle 7
 \t 3 - Oracle 8
+\t 4 - Aucun
  "
 	read -p 'Indiquez le numéro du type à installer :' javaType
-	if [ $javaType != 1 ] || [ $javaType != 2 ] || [ $javaType != 3 ]; then
+	if [ $javaType != 1 ] && [ $javaType != 2 ] && [ $javaType != 3 ] && [ $javaType != 4 ]; then
 		typeInstall=0
-		echo "Numéro de type incorrecte."
+		echo -e "\e[1;31mErreur - Numéro de type incorrecte.\e[0m"
 	fi
 done
 
 # Installation de java
 if [ $javaType = 1 ]; then
 	# OpenJDK 7
+	echo -e "\e[1mINFO\e[0m - Installation OpenJDK 7"
 	apt-get install -y openjdk-7-jdk
 	javaVersion=$(update-java-alternatives --list | grep 'openjdk' | grep '7' | grep -Eo '^[^ ]+')
 	update-java-alternatives --set $javaVersion
 
 elif [ $javaType = 2 ]; then
 	# Oracle 7
+	echo -e "\e[1mINFO\e[0m - Installation Oracle 7"
 	echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee /etc/apt/sources.list.d/webupd8team-java.list
 	echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
@@ -49,6 +50,7 @@ elif [ $javaType = 2 ]; then
 	
 elif [ $javaType = 3 ]; then
 	# Oracle 8
+	echo -e "\e[1mINFO\e[0m - Installation Oracle 8"
 	echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
 	echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
