@@ -11,8 +11,6 @@
 #			Installation d'un serveur tomcat 8.
 #-------------------------------------------------------------------------------------------------------------------------
 
-su
-
 # Définition de l'utilisateur de tomcat
 read -p 'login administrateur: ' tomcatUser
 while [ -z $tomcatUser ]; do
@@ -20,9 +18,11 @@ while [ -z $tomcatUser ]; do
 done
 
 # Définition du mot de passe de l'utilisateur
-read -ps 'Mot de passe administrateur: ' tomcatPwd
+read -p 'Mot de passe administrateur: ' -s  tomcatPwd
+echo ""
 while [ -z $tomcatUser ]; do
-	read -ps 'Mot de passe administrateur: ' tomcatPwd
+	read -p 'Mot de passe administrateur: ' -s  tomcatPwd
+	echo ""
 done
 
 # Installation de Tomcat8
@@ -34,4 +34,4 @@ echo "
 " > /etc/tomcat8/tomcat-users.xml
 
 # Redémarre le serveur tomcat
-service tomcat8 restart
+/etc/init.s/tomcat8 restart

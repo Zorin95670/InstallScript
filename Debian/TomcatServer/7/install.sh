@@ -11,8 +11,6 @@
 #			Installation d'un serveur tomcat 7.
 #-------------------------------------------------------------------------------------------------------------------------
 
-su
-
 # Définition de l'utilisateur de tomcat
 read -p 'login administrateur: ' tomcatUser
 while [ -z $tomcatUser ]; do
@@ -20,9 +18,11 @@ while [ -z $tomcatUser ]; do
 done
 
 # Définition du mot de passe de l'utilisateur
-read -ps 'Mot de passe administrateur: ' tomcatPwd
+read -p 'Mot de passe administrateur: ' -s  tomcatPwd
+echo ""
 while [ -z $tomcatUser ]; do
-	read -ps 'Mot de passe administrateur: ' tomcatPwd
+	read -p 'Mot de passe administrateur: ' -s  tomcatPwd
+	echo ""
 done
 
 # Installation de Tomcat7
@@ -34,4 +34,4 @@ echo "
 " > /etc/tomcat7/tomcat-users.xml
 
 # Redémarre le serveur tomcat
-service tomcat7 restart
+/etc/init.d/tomcat7 restart
