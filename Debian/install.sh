@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------------------------------------------------------------------
-#                                               Script d'example d'installation de serveur
+#                                               Script principal d'installation d'un serveur Debian
 #
 #	Auteur: 	Moittie Vincent
 #	Date:		2015
@@ -8,15 +8,11 @@
 #	Version :	8
 #	Script-Version : 1.0.0
 #	Description:
-#			Description du script d'installation
-#			blabla
-#	Paramètre:	
-#			1° Test
-#			2° Test
-#			3° Test
+#			Installation principale d'un serveur debian, avec le choix du type d'installation.
+#
 #-------------------------------------------------------------------------------------------------------------------------
 
-addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE
+addressWeb=https://github.com/Zorin95670/InstallScript
 
 su
 
@@ -24,20 +20,21 @@ su
 mkdir -p /var/log/InstallServer
 
 # Demande le type d'installation voulu
-typeInstall=0
-while [ $typeInstall = 0 ]
+typeInstall=-1
+while [ $typeInstall = -1 ]
 do
 	echo "
 Quel type de serveur voulez-vous installer :
+\t 0 - Installation basique
 \t 1 - Serveur Apache
 \t 2 - Serveur git
 \t 3 - Serveur Tomcat 7
 \t 4 - Serveur Tomcat 8
  "
 	read -p 'Indiquez le numéro du serveur à installer :' typeInstall
-	if [ $typeInstall != 1 ] || [ $typeInstall != 2 ] || [ $typeInstall != 3 ] || [ $typeInstall != 4 ]; then
-		typeInstall=0
-		echo "Numéro de serveur incorrecte."
+	if [ $typeInstall != 0 ] && [ $typeInstall != 1 ] && [ $typeInstall != 2 ] && [ $typeInstall != 3 ] && [ $typeInstall != 4 ]; then
+		typeInstall=-1
+		echo -e "\e[1;31mErreur - Type d'installation incorrecte.\e[0m"
 	fi
 done
 
@@ -67,6 +64,7 @@ done
 
 # Installation du ssh
 if [ $ssh = 1 ]; then
+	echo -e "\e[1mINFO\e[0m - début installation du ssh"
 	mkdir -p $HOME/INSTALL/ssh
 	wget -P $HOME/INSTALL/ssh $addressWeb/Debian/ssh/install.sh
 	if [ $typeInstall = 2 ]; then
@@ -78,6 +76,7 @@ fi
 
 # Installation de java
 if [ $java = 1 ]; then
+	echo -e "\e[1mINFO\e[0m - début installation de Java"
 	mkdir -p $HOME/INSTALL/Java
 	wget -P $HOME/INSTALL/Java $addressWeb/Debian/Java/install.sh
 	sh $HOME/INSTALL/Java/install.sh
@@ -86,21 +85,25 @@ fi
 
 # Installation du serveur
 if [ $typeInstall = 1 ]; then
+	echo -e "\e[1mINFO\e[0m - début installation du serveur Apache"
 	mkdir -p $HOME/INSTALL/Apache
 	wget -P $HOME/INSTALL/Apache $addressWeb/Debian/ApacheServer/install.sh
 	sh $HOME/INSTALL/Apache/install.sh
 
 elif [ $typeInstall = 2 ]; then
+	echo -e "\e[1mINFO\e[0m - début installation du serveur Git"
 	mkdir -p $HOME/INSTALL/Git
 	wget -P $HOME/INSTALL/Git $addressWeb/Debian/GitServer/install.sh
 	sh $HOME/INSTALL/Git/install.sh $addressWeb
 	
 elif [ $typeInstall = 3 ]; then
+	echo -e "\e[1mINFO\e[0m - début installation du serveur Tomcat 7"
 	mkdir -p $HOME/INSTALL/Tomcat7
 	wget -P $HOME/INSTALL/Tomcat7 $addressWeb/Debian/TomcatServer/7/install.sh
 	sh $HOME/INSTALL/Tomcat7/install.sh
 	
 elif [ $typeInstall = 4 ]; then
+	echo -e "\e[1mINFO\e[0m - début installation du serveur Tomcat 8"
 	mkdir -p $HOME/INSTALL/Tomcat8
 	wget -P $HOME/INSTALL/Tomcat8 $addressWeb/Debian/TomcatServer/8/install.sh
 	sh $HOME/INSTALL/Tomcat8/install.sh

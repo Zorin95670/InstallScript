@@ -19,7 +19,9 @@
 addressWeb=http://ADRESSE_DE_BASE/REPERTOIRE_PRINCIPALE
 
 su
-
+echo -e "\e[1;31mErreur\e[0m"
+echo -e "\e[1;32mSuccès\e[0m"
+echo -e "\e[1mINFO\e[0m "
 # Création du répertoire des logs d'installation
 mkdir -p /var/log/InstallServer
 
