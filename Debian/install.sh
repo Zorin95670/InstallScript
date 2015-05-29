@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------------------------------------------------------------------
-#                                               Script principal d'installation d'un serveur Debian
+#                               Script principal d'installation d'un serveur Debian
 #
 #	Auteur: 	Moittie Vincent
 #	Date:		2015
@@ -13,8 +13,6 @@
 #-------------------------------------------------------------------------------------------------------------------------
 
 addressWeb=https://github.com/Zorin95670/InstallScript
-
-su
 
 # Création du répertoire des logs d'installation
 mkdir -p /var/log/InstallServer
@@ -35,6 +33,18 @@ Quel type de serveur voulez-vous installer :
 	if [ $typeInstall != 0 ] && [ $typeInstall != 1 ] && [ $typeInstall != 2 ] && [ $typeInstall != 3 ] && [ $typeInstall != 4 ]; then
 		typeInstall=-1
 		echo -e "\e[1;31mErreur - Type d'installation incorrecte.\e[0m"
+	fi
+done
+
+# Demande si on veut installer le ssh
+network=0
+while [ $ssh = 0 ]
+do
+	read -p 'Voulez-vous configurer la carte réseau (y/n)? ' response
+	if [ $response = 'y' ]; then
+		network=1
+	elif [ $response = 'n' ]; then
+		network=2
 	fi
 done
 
@@ -61,6 +71,18 @@ do
 		java=2
 	fi
 done
+
+# Installation du ssh
+if [ $ssh = 1 ]; then
+	echo -e "\e[1mINFO\e[0m - début configuration du réseau"
+	mkdir -p $HOME/INSTALL/Networking
+	wget -P $HOME/INSTALL/Networking $addressWeb/Debian/Networking/install.sh
+	if [ $typeInstall = 2 ]; then
+		sh $HOME/INSTALL/Networking/install.sh git
+	else
+		sh $HOME/INSTALL/Networking/install.sh
+	fi
+fi
 
 # Installation du ssh
 if [ $ssh = 1 ]; then
@@ -111,4 +133,5 @@ elif [ $typeInstall = 4 ]; then
 fi
 
 # Suppression des fichiers d'installations
+echo -e "\e[1mINFO\e[0m - Suppression des fichiers d'installations"
 rm -rf $HOME/INSTALL
