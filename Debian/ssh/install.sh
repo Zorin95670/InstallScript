@@ -30,7 +30,7 @@ port=0
 while [ $port = 0 ]
 do
 	read -p 'Numéro de port pour le ssh? ' response
-	if [ $response - le 0 ]; then
+	if [ $response -le 0 ]; then
 		port=0
 	else
 		port=$response
@@ -38,11 +38,12 @@ do
 done
 
 # Demande l'adresse d'écoute
-read -p 'Adresse ip à écouter? ' response
+read -p 'Adresse ip à écouter? ' address
 
 # Installation du paquet pour un serveur ssh
-echo "I - Install openssh paquet" >> $logFile
-[[ -z `dpkg --get-selections | grep -w ^openssh-server[^-]` ]] && apt-get install -y openssh-server
+echo -e "\e[1mINFO\e[0m - Installation openssh paquet"
+apt-get install -y openssh-server
+
 echo "#### Networking options ####
 
 # Listen on a non-standard port > 1024
@@ -153,5 +154,5 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 " > /etc/ssh/sshd_config
 
 # Redémare le service ssh
-echo "I - Restart ssh" >> $logFile
-service ssh restart >> $logFile
+echo -e "\e[1mINFO\e[0m - Restart ssh"
+/etc/init.d/ssh restart
