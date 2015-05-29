@@ -135,3 +135,14 @@ fi
 # Suppression des fichiers d'installations
 echo -e "\e[1mINFO\e[0m - Suppression des fichiers d'installations"
 rm -rf $HOME/INSTALL
+#Demande de redemarrage de la machine
+response=0
+while [ $response = 0 ]
+do
+	read -p 'Voulez-vous redemarrer la machine (y/n)? ' response
+	if [ $response = 'y' ]; then
+		reboot
+	elif [ $response = 'n' ]; then
+		response=2
+	fi
+done
