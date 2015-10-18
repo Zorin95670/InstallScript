@@ -1,0 +1,110 @@
+#!/bin/bash
+# ------------------------------------------------------------------------------------------------------------------------
+#                                               Script d'example d'installation de serveur
+#
+#	Auteur: 	Moittie Vincent
+#	Date:		2015
+#	OS :		Fedora
+#	Version :	22
+#	Script-Version : 1.0.0
+#	Description:
+#			Script de log prenant automatiquement en charge la coloration.
+#	        	
+#	Paramètre:	
+#			1° Type de log
+#			2° Text à afficher
+#			
+#-------------------------------------------------------------------------------------------------------------------------
+
+# If no argument stop script
+if [ $# -eq 0 ]
+then
+    echo "error - no arguments supplied"
+    exit 1
+fi
+
+# Variables definition
+log_type="\033[1m[INFO]\033[0m "
+date_format="%H:%M:%S"
+date_text=""
+text=""
+show_date=1
+show_log=1
+file_out=0
+file_append=1
+file_name=""
+help=0
+
+for var in "$@"
+do
+
+    if [[ $var =~ ^--type= ]] ; then
+        var="-"${var:7}
+    fi
+
+    if [ $var == "--no-append" ] ; then
+        file_append=0
+    elif [[ $var =~ ^--ouput= ]] ; then
+        file_out=1
+        file_name=${var:8}
+    elif [ $var == "-e" ] ; then
+        log_type="\033[1m[\033[31mERROR\033[0m\033[1m]\033[0m "
+    elif [ $var == "-w" ] ; then
+        log_type="\033[1m[\033[33mWARNING\033[0m\033[1m]\033[0m "
+    elif [ $var == "-s" ] ; then
+        log_type="\033[1m[\033[32mSUCCESS\033[0m\033[1m]\033[0m "
+    elif [ $var == "-w" ] ; then
+        log_type="\033[1m[INFO]\033[0m "
+    elif [[ $var =~ ^--df= ]] ; then
+        date_format=${var:5}
+    elif [ $var == "--no-date" ] ; then
+        show_date=0
+    elif [ $var == "--no-log" ] ; then
+        show_log=0
+    elif [ $var == "-h" ] ; then
+        help=1
+    else
+        text=$var
+    fi
+done
+
+if [ $help == 1 ] ; then
+    echo "TODO show help"
+    exit 0
+fi
+
+if [ $show_date == 1 ] ; then
+    date_text=`date +$date_format`
+    date_text="$date_text - "
+fi
+
+if [ $show_log == 0 ] ; then
+    log_type=""
+fi
+
+if [ $file_out == 1 ] ; then
+    if [[ $file_name =~ ^\~ ]] ; then
+        file_name=$HOME${file_name:1}
+    fi
+    
+    if ! [ -d $(dirname "${file_name}") ] ; then
+        echo "error - output directory not exist."
+        exit 1
+    fi
+
+    if [ -d $file_name ] ; then
+        echo "error - file is a directory."
+        exit 1
+    fi
+    result=""
+    if [ $file_append == 1 ] ; then
+        echo -e "$log_type$date_text$text" >> $file_name
+    else
+        echo -e "$log_type$date_text$text" > $file_name
+    fi
+    exit $?
+fi
+
+echo -e "$log_type$date_text$text"
+
+exit 0

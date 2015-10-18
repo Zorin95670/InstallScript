@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Test si la variable est vide
+if [ -z "$1" ]; then
+    echo -e "\033[31;1mMerci de renseigner un nom de fichier!\033[0m"
+    exit
+fi
+
+extMD=".md"
+extPDF=".pdf"
+md=$1$extMD
+pdf=$1$extPDF
+
+# Suppression des echo
+grep -v "^echo " $1 > $md
+
+# Generation du pdf
+pandoc $md -o $pdf
+
+# Suppression du md
+rm $md
